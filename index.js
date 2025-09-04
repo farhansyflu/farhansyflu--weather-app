@@ -20,7 +20,6 @@ const container = document.getElementById("container")
 
 weatherContainer.style.display = "none"
 
-
 async function getWeather(latitude, longitude) {
     const apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&$units=metric&appid=${apiKey}`
     
@@ -62,43 +61,43 @@ async function getWeather(latitude, longitude) {
     container.style.backgroundPosition = "center"
     
     if(data.weather[0].description == "clear sky"){
-        weatherIconElement.innerHTML = `<img src="assets/sun.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/912364/pexels-photo-912364.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/sun.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/CLEAR SKY.webp')"
         
     } 
     if(data.weather[0].description == "few clouds"){
-        weatherIconElement.innerHTML = `<img src="assets/cloud.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/531767/pexels-photo-531767.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/cloud.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/CLOUDY.webp')"
     } 
     if(data.weather[0].description == "scattered clouds"){
-        weatherIconElement.innerHTML = `<img src="assets/cloudy.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/158163/clouds-cloudporn-weather-lookup-158163.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/cloudy.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/SCATTERED CLOUD.webp')"
     }
     if(data.weather[0].description == "overcast clouds"){
-        weatherIconElement.innerHTML = `<img src="assets/cloudy.png" alt="Weather Icon">`;
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/18833476/pexels-photo-18833476.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/cloudy.webp" alt="Weather Icon">`;
+        container.style.backgroundImage = "url('assets/weather/OVERCAST CLOUD.webp')"
     }
     if(data.weather[0].description == "broken clouds"){
-        weatherIconElement.innerHTML = `<img src="assets/cloudy.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/18833476/pexels-photo-18833476.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/cloudy.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/OVERCAST CLOUD.webp')"
     } 
     if(data.weather[0].description == "rain"){
-        weatherIconElement.innerHTML = `<img src="assets/rain.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/69927/rain-floor-water-wet-69927.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/rain.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/RAIN.webp')"
     } 
     if(data.weather[0].description == "shower rain"){
-        weatherIconElement.innerHTML = `<img src="assets/rain.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/166360/pexels-photo-166360.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/rain.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/SHOWER RAIN.webp')"
     } 
     if(data.weather[0].description == "thunderstorm"){
-        weatherIconElement.innerHTML = `<img src="assets/storm.png" alt="Weather Icon">`
-        container.style.backgroundImage = "url('https://images.pexels.com/photos/4871395/pexels-photo-4871395.jpeg')"
+        weatherIconElement.innerHTML = `<img src="assets/storm.webp" alt="Weather Icon">`
+        container.style.backgroundImage = "url('assets/weather/THUNDER STORM.webp')"
     }
             }, 1000);
-            setTimeout(() => {         
-                weatherContainer.style.display = "flex"
-                weatherContainer.classList.add("slide-in-blurred-bottom")
-            }, 1200);
+            setTimeout(() => {  
+                weatherContainer.style.display = "flex"       
+                weatherContainer.classList.add("text-focus-in")
+            }, 1500);
         } else {
             return
         }
@@ -131,65 +130,69 @@ function getLocation(){
 
 window.onload = getLocation
 container.style.opacity = 0
-container.style.transition = "opacity .5s ease-in-out"
+container.style.transition = "opacity .7s ease-in-out"
 
 
 searchBtn.addEventListener("click", e => {
-    weatherContainer.classList.add("text-blur-out")  
 
      let search = inputSearch
+     
+     e.preventDefault()
+     
+     currCity = search.value
+     console.log(currCity);
+     
+     getCityWeather(currCity)
+     
+     search.value = ""
+    })
+    
+    inputForm.addEventListener("submit", e => {
+        
+        
+        let search = inputSearch
         
         e.preventDefault()
-    
-        currCity = search.value
+        
+        currCity = search.value.trim()
+        
         console.log(currCity);
         
         getCityWeather(currCity)
-    
+        
         search.value = ""
-})
+    })
+    
+    async function getCityWeather(currCity){
+        
+        const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${apiKey}`
+        
+        try {
+            if(currCity == ""){
+                throw new Error("Please input a city")
+            }
+            const response = await fetch(apiURL)
 
-inputForm.addEventListener("submit", e => {
-    weatherContainer.classList.add("text-blur-out")  
+            if(!response.ok){
+                container.style.opacity = 100
+                throw new Error("City not found")
+            }
 
-    
-    let search = inputSearch
-    
-    e.preventDefault()
-    
-    currCity = search.value.trim()
-    console.log(currCity);
-    
-    getCityWeather(currCity)
-    
-    search.value = ""
-})
+            const data = await response.json()
+            console.log(data);
 
-async function getCityWeather(currCity){
-    
-    const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${apiKey}`
-    
-    try {
-        setTimeout(() => {
+            const latitude = data.coord.lat
+            const longitude = data.coord.lon
+            getWeather(latitude,longitude)
+            
+            weatherContainer.classList.add("text-blur-out")  
+            setTimeout(() => {
             container.style.opacity = 0
         }, 500);
-
-        const response = await fetch(apiURL)
-        const data = await response.json()
-        
-        console.log(data);
-        
-        const latitude = data.coord.lat
-        const longitude = data.coord.lon
-        getWeather(latitude,longitude)
     }
-    
     catch (error) {
         console.error(error);
-    alert("City Not Found")
-    weatherContainer.classList.remove("text-blur-out")  
-    weatherContainer.classList.add("slide-blurred-in-bottom")
-    container.style.opacity = 100
+        alert(error.message)
 }
 }
 

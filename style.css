@@ -8,7 +8,6 @@ body {
   box-sizing: border-box;
   background-color: black;
 }
-
 .container {
   height: 100vh;
   padding: 30px;
@@ -20,7 +19,6 @@ body {
   z-index: 0;
   width: screen;
 }
-
 .container.change::before {
   background-image: url("");
   content: "";
@@ -29,11 +27,9 @@ body {
   inset: 0;
   filter: brightness(50%);
 }
-
 .input-container{
   position: relative;
 }
-
 .input-search {
   padding: 10px;
   width: 280px;
@@ -52,17 +48,14 @@ body {
   font-size: 0.9em;
   transition: all 0.2s ease-in-out;
 }
-
 .input-search:focus {
   box-shadow: 0px 0px 16px 0px white;
   border: 2px solid white;
   outline: none;
 }
-
 .input-search::placeholder {
   color: rgb(160, 198, 255);
 }
-
 .magnifier {
   width: 25px;
   height: 25px;
@@ -71,16 +64,13 @@ body {
   top: 8px;
   cursor: pointer;
 }
-
 .weather-container {
   width: 90%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  display: none;
 }
-
 .location-container {
   display: flex;
   gap: 20px;
@@ -90,20 +80,17 @@ body {
   text-align: center;
   width: 100%;
 }
-
 .location-container img {
   width: 50px;
   height: 50px;
 }
-
 .weather-container h4 {
   color: white;
 }
-
 #location {
   color: white;
+  text-align: left;
 }
-
 .weather-info {
   margin-top: 180px;
   display: grid;
@@ -112,7 +99,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 #current-time {
   color: white;
   font-weight: 500;
@@ -120,7 +106,6 @@ body {
   top: 90px;
   font-size: 0.9em;
 }
-
 #temperature {
   color: white;
   font-weight: 700;
@@ -128,7 +113,6 @@ body {
   position: absolute;
   top: 290px;
 }
-
 #description {
   color: white;
   font-size: 2.5em;
@@ -146,24 +130,20 @@ body {
   border-radius: 35px;
   text-align: center;
 }
-
 #max-temp {
   color: white;
   position: absolute;
   top: 340px;
 }
-
 #min-temp {
   position: absolute;
   top: 360px;
   color: white;
 }
-
 .weather-icon img {
   width: 100px;
   height: 100px;
 }
-
 .card {
   background: linear-gradient(
     275deg,
@@ -177,7 +157,6 @@ body {
   max-width: 300px;
   width: 80%;
 }
-
 #humidity {
   color: white;
   font-size: 1em;
@@ -199,12 +178,8 @@ body {
   font-weight: 600;
 }
 
-.slide-in-blurred-bottom{animation:slide-in-blurred-bottom 1.5s cubic-bezier(.23,1.000,.32,1.000) both}
-@keyframes slide-in-blurred-bottom{0%{transform:translateY(1000px) scaleY(2.5) scaleX(.2);transform-origin:50% 100%;filter:blur(40px);opacity:0}100%{transform:translateY(0) scaleY(1) scaleX(1);transform-origin:50% 50%;filter:blur(0);opacity:1}}
-
-.text-focus-in{animation:text-focus-in 1s cubic-bezier(.55,.085,.68,.53) both}
+.text-focus-in{animation:text-focus-in 1.2s cubic-bezier(.55,.085,.68,.53) both}
 @keyframes text-focus-in{0%{filter:blur(12px);opacity:0}100%{filter:blur(0);opacity:1}}
-
 .text-blur-out{animation:text-blur-out 1.2s cubic-bezier(.55,.085,.68,.53) both}
 @keyframes text-blur-out{0%{filter:blur(.01)}100%{filter:blur(12px) opacity(0)}}
 
@@ -213,27 +188,22 @@ body {
     font-size: 1.7em;
     gap: 10px;
   }
-
   .location-container img{
     height: 30px;
     width: 30px;
   }
- 
   #current-time{
     top: 75px;
   }
-
   .weather-icon{
     margin-top: 10px;
   }
 }
 
 @media screen and (max-width: 555px) {
-
   .container{
     height: 100%;
   }
-
 .weather-info{
   display: flex;
   flex-direction: column;
@@ -243,46 +213,36 @@ body {
   width: 100%;
   text-align: center;
 }
-
 .card{
   max-width: 300px;
   width: 90%;
 }
-
 .location-container{
   gap: 15px;
   width: 250px
-
 }
-
 .location-container img{
   width: 50px;
   height: 50px;
 }
-
 #current-time{
   top: 130px;
   max-width: 203px;
   text-align: center;
 }
-
 .weather-icon{
   margin-top: 30px;
 }
-
 #description{
   top: 280px;
   font-size: 1.5em;
 }
-
 #temperature{
   top: 350px;
 }
-
 #max-temp {
   top: 405px;
 }
-
 #min-temp {
   top: 430px;
 
@@ -292,33 +252,26 @@ body {
 @media screen and (min-height: 999px) {
 .weather-icon{
   margin-top: 30px;
-  
 }
-
 .weather-icon img {
   width: 150px;
   height: 150px;
 }
-
 #description{
   top: 300px;
   font-size: 3em;
 }
-
 #temperature{
   top: 400px;
   font-size: 3em;
 }
-
 .weather-info{
   margin-top: 350px;
 }
-
 #max-temp{
   top: 500px;
   font-size: 2em;
 }
-
 #min-temp{
   top: 550px;
   font-size: 2em;
